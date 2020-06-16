@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Fragments</string>
+
+    <string name="label_a">A</string>
+    <string name="label_b">B</string>
+    <string name="label_c">C</string>
+    <string name="label_d">D</string>
+    <string name="label_e">E</string>
+
+    <string name="text_main_activity">MainActivity</string>
+</resources>
