@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_fragment_d">
+    android:background="#A8CFA9">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,11 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@color/text_bg_color_black"
             android:gravity="center_horizontal"
             android:padding="10dp"
             android:text="@string/label_d"
-            android:textColor="@color/text_color_white"
+            android:textColor="@android:color/holo_red_dark"
             android:textSize="56sp"
             android:textStyle="bold" />
 
