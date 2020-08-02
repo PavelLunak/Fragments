@@ -2,6 +2,7 @@ package cz.itnetwork.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,26 @@ public class FragmentA extends Fragment {
 
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        Log.d("lifecycle", "onAttach()");
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("lifecycle", "onCreate()");
+
         argumemts = getArguments();
         message = argumemts.getString("message");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("lifecycle", "onResume()");
     }
 
     @Nullable
@@ -59,6 +75,11 @@ public class FragmentA extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public String toString() {
+        return "Fragment A";
     }
 
     public void setListener(OnActivityAMessageSendListener listener) {

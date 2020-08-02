@@ -2,6 +2,7 @@ package cz.itnetwork.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,11 @@ public class FragmentE extends Fragment implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Fragment E";
     }
 
     public interface OnActivityEMessageSendListener {

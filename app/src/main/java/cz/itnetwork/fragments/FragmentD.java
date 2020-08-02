@@ -79,6 +79,11 @@ public class FragmentD extends Fragment {
         });
     }
 
+    @Override
+    public String toString() {
+        return "Fragment D";
+    }
+
     public void setListener(OnActivityDMessageSendListener listener) {
         this.listener = listener;
     }

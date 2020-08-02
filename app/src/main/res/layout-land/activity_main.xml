@@ -170,12 +170,52 @@
                         android:text="Odeslat text do fragmentu B"
                         android:textColor="#009688" />
 
+                    <RadioGroup
+                        android:id="@+id/rgChoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btnSendToFragmentB"
+                        android:background="#FFFACF"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <RadioButton
+                            android:id="@+id/rbAdd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:checked="true"
+                            android:text="add" />
+
+                        <RadioButton
+                            android:id="@+id/rbReplace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:text="replace" />
+
+                        <RadioButton
+                            android:id="@+id/rbRemove"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:text="remove" />
+
+                        <RadioButton
+                            android:id="@+id/rbHide"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:text="hide" />
+
+                    </RadioGroup>
+
                     <CheckBox
-                        android:id="@+id/chbRememberFragments"
+                        android:id="@+id/chbAddToBackStack"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Pamatovat si fragmenty"
+                        android:text="Přidat transakci do zásobníku"
                         android:textSize="14sp" />
 
                     <CheckBox
@@ -183,11 +223,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:checked="false"
-                        android:text="Vytvářet nové instance"
+                        android:text="Vždy vytvořit novou instanci fragmentu"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/labelBackStackCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="TextView"
+                        android:textColor="#E1004C" />
+
+                    <TextView
+                        android:id="@+id/labelFragmentsCount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

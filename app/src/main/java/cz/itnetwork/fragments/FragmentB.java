@@ -81,6 +81,11 @@ public class FragmentB extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public String toString() {
+        return "Fragment B";
+    }
+
     public void setMessage(String msg) {
         if (msg != null) {
             textView2.setText(msg);

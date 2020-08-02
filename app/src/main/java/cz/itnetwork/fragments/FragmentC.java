@@ -61,6 +61,11 @@ public class FragmentC extends Fragment {
         });
     }
 
+    @Override
+    public String toString() {
+        return "Fragment C";
+    }
+
     public void setListener(OnActivityCMessageSendListener listener) {
         this.listener = listener;
     }

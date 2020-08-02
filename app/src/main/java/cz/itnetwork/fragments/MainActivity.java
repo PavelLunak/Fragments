@@ -6,11 +6,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         FragmentManager.OnBackStackChangedListener,
@@ -20,8 +24,8 @@ public class MainActivity extends AppCompatActivity implements
         FragmentE.OnActivityEMessageSendListener {
 
     // Odkazy do resources na soubory s deklarací animací přechodu fragmentů
-    int animShowFragment = R.anim.anim_fragment_show;
-    int animHideFragment = R.anim.anim_fragment_hide;
+    final int animShowFragment = R.anim.anim_fragment_show;
+    final int animHideFragment = R.anim.anim_fragment_hide;
 
     // Konstanty s názvy fragmenrů
     final String FRAGMENT_A_NAME = "FragmentA";
@@ -42,19 +46,29 @@ public class MainActivity extends AppCompatActivity implements
     Button btnD;
     Button btnSendToFragmentB;
 
+    // Volba add, replace, remove, hide
+    RadioGroup rgChoice;
+
     // Zaškrtnuto - ukládání fragmentů do zásobníku
-    CheckBox chbRememberFragments;
+    CheckBox chbAddToBackStack;
 
     // Zaškrtnuto - bude vytvořen nový fragment i v případě, již je jeho jiná instance v zásobníku
     CheckBox checkBoxNewInstance;
 
-    // Zobrazení počtu fragmentů v zásobníku
+    // Zobrazení počtu transakcí v zásobníku
     TextView labelBackStackCount;
+
+    // Zobrazení počtu fragmentů v zásobníku
+    TextView labelFragmentsCount;
 
     public FragmentManager fragmentManager;
 
-    // Počet fragmentů v zásobníku
+    // Počet transakcí v zásobníku
     int fragmentsInStack;
+
+    // Počet fragmnetů v zásobníku
+    int fragmentsCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +86,39 @@ public class MainActivity extends AppCompatActivity implements
         btnD = findViewById(R.id.btnD);
         btnSendToFragmentB = findViewById(R.id.btnSendToFragmentB);
 
-        chbRememberFragments = findViewById(R.id.chbRememberFragments);
+        rgChoice = findViewById(R.id.rgChoice);
+
+        chbAddToBackStack = findViewById(R.id.chbAddToBackStack);
         checkBoxNewInstance = findViewById(R.id.checkBoxNewInstance);
 
         labelBackStackCount = findViewById(R.id.labelBackStackCount);
+        labelFragmentsCount = findViewById(R.id.labelFragmentsCount);
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
 
         fragmentsInStack = fragmentManager.getBackStackEntryCount();
-        labelBackStackCount.setText("Fragments in stack: " + fragmentsInStack);
+
+        labelBackStackCount.setText("Zásobník transakcí: " + fragmentsInStack);
+        labelFragmentsCount.setText("Počet fragmentů: " + fragmentsCount);
+
+        rgChoice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rbAdd :
+                        chbAddToBackStack.setEnabled(true);
+                        chbAddToBackStack.setChecked(true);
+                        break;
+                    case R.id.rbReplace :
+                    case R.id.rbRemove :
+                    case R.id.rbHide :
+                        chbAddToBackStack.setChecked(false);
+                        chbAddToBackStack.setEnabled(false);
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -96,28 +133,93 @@ public class MainActivity extends AppCompatActivity implements
     // Stisknutí tlačítka ZPĚT na zařízení
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        updateFragmentsCount();
+
+        if (fragmentsCount == 0) finish();
+        else super.onBackPressed();
     }
 
     // Sledování změn v zásobníku.
     @Override
     public void onBackStackChanged() {
+        Log.d("lifecycle", "onBackStackChanged()");
+
+        updateBackStackTransactionsCount();
+        updateFragmentsCount();
+        updateToolbarText();
+    }
+
+    public void updateBackStackTransactionsCount() {
         // Počet fragmentů (přesněji - transakcí) v zásobníku
         fragmentsInStack = fragmentManager.getBackStackEntryCount();
 
         // Aktualizace zobrazeného počtu transakcí
-        labelBackStackCount.setText("Fragments in stack: " + fragmentsInStack);
-        updateToolbarText();
+        labelBackStackCount.setText("Zásobník transakcí: " + fragmentsInStack);
+
+        if (fragmentsInStack <= 0) return;
+
+        Log.d("lifecycle", "-------------- BACK STACK --------------");
+        for (int i = 0; i < fragmentsInStack; i ++) {
+            FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);
+            if (entry != null) {
+                if (fragmentManager.getBackStackEntryAt(i).getName() != null) {
+                    Log.d("lifecycle", fragmentManager.getBackStackEntryAt(i).getName());
+                }
+            }
+        }
+    }
+
+    public void updateFragmentsCount() {
+        Log.d("lifecycle", "-------------- FRAGMENTS --------------");
+
+        List<Fragment> fragments = fragmentManager.getFragments();
+
+        if (fragments != null) {
+
+            // Získání počtu fragmentů vložených do aktivity
+            fragmentsCount = fragments.size();
+
+            if (fragments.size() > 0) {
+                for (Fragment fragment : fragments) {
+                    Log.d("lifecycle", fragment.toString());
+                }
+            } else {
+                Log.d("lifecycle", "fragments.size() == 0");
+            }
+        } else {
+            Log.d("lifecycle", "fragments == null");
+        }
+
+        // Aktualizace zobrazeného počtu transakcí
+        labelFragmentsCount.setText("Počet fragmentů: " + fragmentsCount);
+
+        Log.d("lifecycle", "-----------------------------------------------------------");
     }
 
     // Nastavení textu toolbaru aplikace podle toho, zda je zobrazen některý fragment
     public void updateToolbarText() {
+
+        // Získání seznamu fragmentů vložených do aktivity
+        List<Fragment> fragments = fragmentManager.getFragments();
+
+        if (fragments != null) {
+            if (fragments.size() > 0) {
+                setTitle(fragments.get(fragments.size() - 1).toString());
+            } else {
+                setTitle(getString(R.string.app_name));
+            }
+        } else {
+            setTitle(getString(R.string.app_name));
+        }
+
+        /* Aktualizace toolbaru podle změn zásobníku
         if (fragmentsInStack > 0) {
             // Poslední transakce v zásobníku
             FragmentManager.BackStackEntry lastEntry = fragmentManager.getBackStackEntryAt(fragmentsInStack - 1);
 
             // Tag, pod kterým byla uložena poslední transakce
             String lastFragmentTag = lastEntry.getName();
+            if (lastFragmentTag == null) return;
 
             if (lastFragmentTag.equals(FRAGMENT_A_NAME)) {
                 setTitle("Fragment A");
@@ -133,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             setTitle(getString(R.string.app_name));
         }
+        */
     }
 
     // Kliknutí na jedno z tlačítek
@@ -174,21 +277,21 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     // Požadavek na zobrazení fragnmentu
-    // name -> název fragmentu
+    // name -> název fragmentu, který má být zobrazen
     // message -> textový řetězec, který bude fragmentu předán a ve fragmentu zobrazen
     public void showFragment(String name, String message) {
 
         Fragment fragment = null;
 
         if (checkBoxNewInstance.isChecked()) {
-            addFragment(fragment, name, message);
+            performNewTransaction(fragment, name, message);
         } else {
-            if (chbRememberFragments.isChecked()) {
+            if (chbAddToBackStack.isChecked()) {
                 fragment = fragmentManager.findFragmentByTag(name);
             }
 
             if (fragment == null) {
-                addFragment(fragment, name, message);
+                performNewTransaction(fragment, name, message);
             } else {
                 restoreFragment(name);
             }
@@ -219,8 +322,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    // Zobrazení fragmentu uživateli
-    public void addFragment(Fragment fragment, String name, String message) {
+    public void performNewTransaction(Fragment fragment, String name, String message) {
         if (fragment == null) {
             fragment = createFragment(name);
         }
@@ -240,16 +342,50 @@ public class MainActivity extends AppCompatActivity implements
             fragmentTransaction.add(R.id.container2, fragment, name);
 
         } else {
-            if (chbRememberFragments.isChecked()) {
-                fragmentTransaction.add(R.id.container, fragment, name);
-            } else {
-                fragmentTransaction.replace(R.id.container, fragment, name);
-            }
+            switch (rgChoice.getCheckedRadioButtonId()) {
+                case R.id.rbAdd :
+                    fragmentTransaction.add(R.id.container, fragment, name);
+                    break;
+                case R.id.rbReplace :
+                    /*
+                    Nahrazení existujícího fragmentu, který byl přidán do kontejneru. To je v podstatě
+                    stejné jako volání metody remove() pro všechny aktuálně přidané fragmenty,
+                    které byly přidány do stejného kontejneru.
+                    */
+                    fragmentTransaction.replace(R.id.container, fragment, name);
+                    break;
+                case R.id.rbRemove :
+                    /*
+                    Odstraní existující fragment. Pokud byl dříve přidán do kontejneru, bude také odstraněn
+                    z tohoto kontejneru.
+                    */
+                    //fragmentTransaction.remove(fragment);
+                    Fragment fragmentToRemove = fragmentManager.findFragmentByTag(name);
 
+                    if (fragmentToRemove != null) fragmentTransaction.remove(fragmentToRemove);
+                    else Toast.makeText(this, "Fragment neexistuje", Toast.LENGTH_LONG).show();
+
+                    break;
+                case R.id.rbHide :
+                    /*
+                    Skryje (nebo zobrazí skrytý) existující fragment, který byl dříve přidán do kontejneru.
+                    */
+                    Fragment fragmentToHide = fragmentManager.findFragmentByTag(name);
+                    if (fragmentToHide != null) {
+                        if (fragmentToHide.isHidden()) {
+                            fragmentTransaction.show(fragmentToHide);
+                        } else {
+                            fragmentTransaction.hide(fragmentToHide);
+                        }
+                    } else {
+                        Toast.makeText(this, "Fragment neexistuje", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
         }
 
         // Parametr "name" opět slouží k pozdějšímu vyhledání fragmentu
-        if (chbRememberFragments.isChecked()) fragmentTransaction.addToBackStack(name);
+        if (chbAddToBackStack.isChecked()) fragmentTransaction.addToBackStack(name);
 
         fragmentTransaction.commit();
     }
