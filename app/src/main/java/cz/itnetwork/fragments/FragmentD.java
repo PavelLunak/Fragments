@@ -19,8 +19,9 @@ public class FragmentD extends Fragment {
     EditText etMessage;
     Button btnSend;
     Button btnShowFragmentE;
+    TextView labelMessageFromFragmentE;
 
-    OnActivityDMessageSendListener listener;
+    OnFragmentMessageSentListener listener;
 
     MainActivity activity;
     Bundle argumemts;
@@ -30,9 +31,8 @@ public class FragmentD extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof MainActivity) {
-            activity = (MainActivity) context;
-        }
+        activity = (MainActivity) context;
+        activity.setTitle(toString());
     }
 
     @Override
@@ -51,12 +51,7 @@ public class FragmentD extends Fragment {
         etMessage = view.findViewById(R.id.etMessage);
         btnSend = view.findViewById(R.id.btnSend);
         btnShowFragmentE = view.findViewById(R.id.btnShowFragmentE);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        labelMessageFromFragmentE = view.findViewById(R.id.labelMessageFromFragmentE);
 
         textView2.setText(message);
 
@@ -65,7 +60,7 @@ public class FragmentD extends Fragment {
             public void onClick(View v) {
                 if (etMessage.getText() != null) {
                     if (listener != null) {
-                        listener.onActivityDMessageSend(etMessage.getText().toString());
+                        listener.onFragmentMessageSent(activity.FRAGMENT_D_NAME, etMessage.getText().toString());
                     }
                 }
             }
@@ -74,9 +69,20 @@ public class FragmentD extends Fragment {
         btnShowFragmentE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.showFragment(activity.FRAGMENT_E_NAME, "Tento fragment je otevírán z fragmentu D a je vložen do druhého kontejneru.");
+                Bundle data = new Bundle();
+                data.putString("message", "Tento fragment je otevírán z fragmentu D a je vložen do druhého kontejneru.");
+                activity.showFragment(activity.FRAGMENT_E_NAME, data);
             }
         });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        activity.updateFragmentsCount();
+        activity.updateTransactionsCount();
     }
 
     @Override
@@ -84,11 +90,11 @@ public class FragmentD extends Fragment {
         return "Fragment D";
     }
 
-    public void setListener(OnActivityDMessageSendListener listener) {
+    public void setListener(OnFragmentMessageSentListener listener) {
         this.listener = listener;
     }
 
-    public interface OnActivityDMessageSendListener {
-        public void onActivityDMessageSend(String msg);
+    public void setMessageFromFragmentE(String message) {
+        labelMessageFromFragmentE.setText(message);
     }
 }

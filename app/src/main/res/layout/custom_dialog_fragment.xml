@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDF6">
+
+    <TextView
+        android:id="@+id/labelHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2C41B8"
+        android:padding="10dp"
+        android:text="Hlavička dialogu"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/labelMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelHeader"
+        android:padding="20dp"
+        android:text="TextView pro zobrazení jakékoliv zprávy, určené uživateli... Například zde uživatele požádáme aby zvolil některou ze zobrazených položek." />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/labelMessage">
+
+    </ListView>
+
+</RelativeLayout>

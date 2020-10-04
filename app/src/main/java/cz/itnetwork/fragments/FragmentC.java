@@ -19,18 +19,34 @@ public class FragmentC extends Fragment {
     EditText etMessage;
     Button btnSend;
 
-    OnActivityCMessageSendListener listener;
+    MainActivity activity;
+    OnFragmentMessageSentListener listener;
 
-    Bundle argumemts;
+    Bundle arguments;
     String message;
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        activity = (MainActivity) context;
+        activity.setTitle(toString());
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        argumemts = getArguments();
-        message = argumemts.getString("message");
+        arguments = getArguments();
+        message = arguments.getString("message");
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        activity.updateFragmentsCount();
+        activity.updateTransactionsCount();
     }
 
     @Nullable
@@ -40,12 +56,6 @@ public class FragmentC extends Fragment {
         textView2 = view.findViewById(R.id.textView2);
         etMessage = view.findViewById(R.id.etMessage);
         btnSend = view.findViewById(R.id.btnSend);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         textView2.setText(message);
 
@@ -54,11 +64,13 @@ public class FragmentC extends Fragment {
             public void onClick(View v) {
                 if (etMessage.getText() != null) {
                     if (listener != null) {
-                        listener.onActivityCMessageSend(etMessage.getText().toString());
+                        listener.onFragmentMessageSent(activity.FRAGMENT_C_NAME, etMessage.getText().toString());
                     }
                 }
             }
         });
+
+        return view;
     }
 
     @Override
@@ -66,11 +78,7 @@ public class FragmentC extends Fragment {
         return "Fragment C";
     }
 
-    public void setListener(OnActivityCMessageSendListener listener) {
+    public void setListener(OnFragmentMessageSentListener listener) {
         this.listener = listener;
-    }
-
-    public interface OnActivityCMessageSendListener {
-        public void onActivityCMessageSend(String msg);
     }
 }

@@ -2,79 +2,74 @@ package cz.itnetwork.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 public class FragmentA extends Fragment {
 
-    TextView textView2;
-    EditText etMessage;
+    TextView labelNumber1, labelNumber2;
     Button btnSend;
 
-    OnActivityAMessageSendListener listener;
+    MainActivity activity;
+    OnResultCalculatedListener listener;
 
-    Bundle argumemts;
-    String message;
+    Bundle arguments;
+
+    int number1;
+    int number2;
+    int result;
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        Log.d("lifecycle", "onAttach()");
-    }
+        activity = (MainActivity) context;
+        listener = (OnResultCalculatedListener) context;
+        activity.setTitle(toString());
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        arguments = getArguments();
+        number1 = arguments.getInt("number1");
+        number2 = arguments.getInt("number2");
+        result = number1 + number2;
 
-        Log.d("lifecycle", "onCreate()");
+        if (context instanceof MainActivity) {
 
-        argumemts = getArguments();
-        message = argumemts.getString("message");
-    }
+        } else if (context instanceof MainActivity) {
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("lifecycle", "onResume()");
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_a, container, false);
-        textView2 = view.findViewById(R.id.textView2);
-        etMessage = view.findViewById(R.id.etMessage);
+        labelNumber1 = view.findViewById(R.id.labelNumber1);
+        labelNumber2 = view.findViewById(R.id.labelNumber2);
         btnSend = view.findViewById(R.id.btnSend);
-        return view;
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        textView2.setText(message);
+        labelNumber1.setText("" + number1);
+        labelNumber2.setText("" + number2);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etMessage.getText() != null) {
-                    if (listener != null) {
-                        listener.onActivityAMessageSend(etMessage.getText().toString());
-                    }
-                }
+                listener.onResultCalculated(number1, number2, result);
             }
         });
+
+        activity.updateFragmentsCount();
+        activity.updateTransactionsCount();
+
+        return view;
     }
 
     @Override
@@ -82,11 +77,7 @@ public class FragmentA extends Fragment {
         return "Fragment A";
     }
 
-    public void setListener(OnActivityAMessageSendListener listener) {
-        this.listener = listener;
-    }
-
-    public interface OnActivityAMessageSendListener {
-        public void onActivityAMessageSend(String msg);
+    public interface OnResultCalculatedListener {
+        void onResultCalculated(int number1, int number2, int result);
     }
 }

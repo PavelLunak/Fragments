@@ -17,7 +17,7 @@
             android:padding="10dp"
             android:text="@string/label_b"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="56sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btnSend"
             android:padding="10dp"
-            android:text="Z tohoto fragmentu neodesíláme zprávu do aktivity pomocí listeneru, ale přímo setterem deklarovaným v aktivitě. Referenci na aktivitu získáváme v přepsané metodě onAttach()." />
+            android:text="@string/fragment_b_info" />
 
     </RelativeLayout>
 

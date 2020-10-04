@@ -17,7 +17,7 @@
             android:padding="10dp"
             android:text="@string/label_d"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="56sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <TextView
@@ -58,6 +58,24 @@
             android:layout_below="@id/btnSend"
             android:layout_centerHorizontal="true"
             android:text="Otevřít frgment E" />
+
+        <TextView
+            android:id="@+id/titleMsgFromE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnShowFragmentE"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Zpráva z fragmentu E:" />
+
+        <TextView
+            android:id="@+id/labelMessageFromFragmentE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleMsgFromE"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
 
     </RelativeLayout>
 

@@ -95,6 +95,27 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/titleE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fragment E"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/labelMessageE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+        </TableRow>
+
     </TableLayout>
 
     <RelativeLayout
@@ -116,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="buttonClick"
-                android:text="@string/label_a" />
+                android:text="A" />
 
             <Button
                 android:id="@+id/btnB"
@@ -124,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="buttonClick"
-                android:text="@string/label_b" />
+                android:text="B" />
 
             <Button
                 android:id="@+id/btnC"
@@ -132,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="buttonClick"
-                android:text="@string/label_c" />
+                android:text="C" />
 
             <Button
                 android:id="@+id/btnD"
@@ -140,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="buttonClick"
-                android:text="@string/label_d" />
+                android:text="D" />
 
         </LinearLayout>
 
@@ -153,80 +174,38 @@
             android:text="Odeslat text do fragmentu B"
             android:textColor="#009688" />
 
-        <RadioGroup
-            android:id="@+id/rgChoice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btnSendToFragmentB"
-            android:background="#FFFACF"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <RadioButton
-                android:id="@+id/rbAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:checked="true"
-                android:text="add" />
-
-            <RadioButton
-                android:id="@+id/rbReplace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="replace" />
-
-            <RadioButton
-                android:id="@+id/rbRemove"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="remove" />
-
-            <RadioButton
-                android:id="@+id/rbHide"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="hide" />
-
-        </RadioGroup>
-
         <CheckBox
             android:id="@+id/chbAddToBackStack"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rgChoice"
+            android:layout_below="@id/btnSendToFragmentB"
             android:checked="true"
-            android:text="Přidat transakci do zásobníku"
-            android:textSize="14sp" />
+            android:text="Přidávat transakce do zásobníku" />
 
         <CheckBox
-            android:id="@+id/checkBoxNewInstance"
-            android:layout_width="match_parent"
+            android:id="@+id/chbNewInstance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/chbAddToBackStack"
             android:checked="false"
-            android:text="Vždy vytvořit novou instanci fragmentu"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/labelBackStackCount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/checkBoxNewInstance"
-            android:layout_marginLeft="10dp"
-            android:text="TextView"
-            android:textColor="#E1004C" />
+            android:text="Vytvářet nové instance fragmentů" />
 
         <TextView
             android:id="@+id/labelFragmentsCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/labelBackStackCount"
+            android:layout_below="@id/chbNewInstance"
             android:layout_marginLeft="10dp"
-            android:text="TextView"
+            android:text="Počet fragmentů:"
+            android:textColor="#E1004C" />
+
+        <TextView
+            android:id="@+id/labelTransactionsCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/labelFragmentsCount"
+            android:layout_marginLeft="10dp"
+            android:text="Počet transakcí:"
             android:textColor="#E1004C" />
 
     </RelativeLayout>

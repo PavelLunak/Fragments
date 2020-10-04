@@ -20,24 +20,18 @@ public class FragmentB extends Fragment {
     Button btnSend;
 
     MainActivity activity;
-    Bundle argumemts;
-    String message;
 
 
     // Tato metoda je volána při vložení fragmentu do aktivity.
-    // Díky parametru context získáme referenci na nadřazenou aktivitu
+    // Díky parametru context získáme referenci na aktivitu, ve které je fragment zobrazen
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof MainActivity) {
             activity = (MainActivity) context;
+            activity.setTitle(toString());
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -47,38 +41,25 @@ public class FragmentB extends Fragment {
         textView2 = view.findViewById(R.id.textView2);
         etMessage = view.findViewById(R.id.etMessage);
         btnSend = view.findViewById(R.id.btnSend);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etMessage.getText() != null) {
                     if (activity != null) {
+                        // Nastavení zprávy z fragmentu B v aktivitě
                         activity.setMessageB(etMessage.getText().toString());
                     }
                 }
             }
         });
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
+        if (activity != null) {
+            activity.updateFragmentsCount();
+            activity.updateTransactionsCount();
+        }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        return view;
     }
 
     @Override

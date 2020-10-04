@@ -17,7 +17,7 @@
             android:padding="10dp"
             android:text="@string/label_e"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="56sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:text="Odeslat do aktivity" />
 
         <EditText
-            android:id="@+id/etMessageForFragment"
+            android:id="@+id/etMessageForFragmentD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnSendToActivity"
@@ -66,9 +66,35 @@
             android:id="@+id/btnSendToFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etMessageForFragment"
+            android:layout_below="@id/etMessageForFragmentD"
             android:layout_centerHorizontal="true"
             android:text="Odeslat do fragmentu D" />
+
+        <Button
+            android:id="@+id/btnShowDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnSendToFragment"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Zobrazit dialog jako dialog" />
+
+        <Button
+            android:id="@+id/btnShowDialog2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnShowDialog"
+            android:layout_centerHorizontal="true"
+            android:text="Zobrazit dialog jako fragment" />
+
+        <TextView
+            android:id="@+id/labelMyFruit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnShowDialog2"
+            android:gravity="center_horizontal"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 

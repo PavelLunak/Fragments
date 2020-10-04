@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Fragments</string>
 
-    <string name="label_a">A</string>
-    <string name="label_b">B</string>
-    <string name="label_c">C</string>
-    <string name="label_d">D</string>
-    <string name="label_e">E</string>
+    <string name="label_a">fragment A</string>
+    <string name="label_b">fragment B</string>
+    <string name="label_c">fragment C</string>
+    <string name="label_d">fragment D</string>
+    <string name="label_e">fragment E</string>
 
     <string name="text_main_activity">MainActivity</string>
+    <string name="fragment_b_info">Z tohoto fragmentu neodesíláme zprávu do aktivity pomocí listeneru, ale přímo setterem deklarovaným v aktivitě. Referenci na aktivitu získáváme v přepsané metodě onAttach().</string>
 </resources>
