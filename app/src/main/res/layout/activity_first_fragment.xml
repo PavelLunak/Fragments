@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnShowFirstFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Zobrazit první fragment" />
+
+    <FrameLayout
+        android:id="@+id/containerForFirstFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3dp">
+
+        <!--
+        Your Button is visible because is has a default elevation of 2dp when using a Material Design Theme.
+        You should give the layout above the button an elevation with 2 or more dp.
+        This will make the button disappear behind the fragment layout in your case.
+        -->
+
+    </FrameLayout>
+
+</RelativeLayout>

@@ -21,6 +21,8 @@ public class FragmentB extends Fragment {
 
     MainActivity activity;
 
+    int testNumber = 0;
+
 
     // Tato metoda je volána při vložení fragmentu do aktivity.
     // Díky parametru context získáme referenci na aktivitu, ve které je fragment zobrazen
@@ -48,16 +50,18 @@ public class FragmentB extends Fragment {
                 if (etMessage.getText() != null) {
                     if (activity != null) {
                         // Nastavení zprávy z fragmentu B v aktivitě
-                        activity.setMessageB(etMessage.getText().toString());
+                        //activity.setMessageB(etMessage.getText().toString());
                     }
                 }
             }
         });
 
         if (activity != null) {
-            activity.updateFragmentsCount();
-            activity.updateTransactionsCount();
+            //activity.updateFragmentsCount();
+            //activity.updateTransactionsCount();
         }
+
+        textView2.setText("" + testNumber);
 
         return view;
     }
@@ -71,5 +75,9 @@ public class FragmentB extends Fragment {
         if (msg != null) {
             textView2.setText(msg);
         }
+    }
+
+    public void setTestNumber(int testNumber) {
+        this.testNumber = testNumber;
     }
 }

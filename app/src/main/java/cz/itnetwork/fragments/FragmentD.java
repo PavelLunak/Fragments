@@ -60,7 +60,7 @@ public class FragmentD extends Fragment {
             public void onClick(View v) {
                 if (etMessage.getText() != null) {
                     if (listener != null) {
-                        listener.onFragmentMessageSent(activity.FRAGMENT_D_NAME, etMessage.getText().toString());
+                        //listener.onFragmentMessageSent(activity.FRAGMENT_D_NAME, etMessage.getText().toString());
                     }
                 }
             }
@@ -71,7 +71,7 @@ public class FragmentD extends Fragment {
             public void onClick(View v) {
                 Bundle data = new Bundle();
                 data.putString("message", "Tento fragment je otevírán z fragmentu D a je vložen do druhého kontejneru.");
-                activity.showFragment(activity.FRAGMENT_E_NAME, data);
+                //activity.showFragment(activity.FRAGMENT_E_NAME, data);
             }
         });
 
@@ -81,8 +81,8 @@ public class FragmentD extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity.updateFragmentsCount();
-        activity.updateTransactionsCount();
+        //activity.updateFragmentsCount();
+        //activity.updateTransactionsCount();
     }
 
     @Override

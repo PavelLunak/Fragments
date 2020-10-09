@@ -45,8 +45,8 @@ public class FragmentC extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity.updateFragmentsCount();
-        activity.updateTransactionsCount();
+        //activity.updateFragmentsCount();
+        //activity.updateTransactionsCount();
     }
 
     @Nullable
@@ -64,7 +64,7 @@ public class FragmentC extends Fragment {
             public void onClick(View v) {
                 if (etMessage.getText() != null) {
                     if (listener != null) {
-                        listener.onFragmentMessageSent(activity.FRAGMENT_C_NAME, etMessage.getText().toString());
+                        //listener.onFragmentMessageSent(activity.FRAGMENT_C_NAME, etMessage.getText().toString());
                     }
                 }
             }

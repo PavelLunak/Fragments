@@ -66,8 +66,8 @@ public class FragmentA extends Fragment {
             }
         });
 
-        activity.updateFragmentsCount();
-        activity.updateTransactionsCount();
+        //activity.updateFragmentsCount();
+        //activity.updateTransactionsCount();
 
         return view;
     }

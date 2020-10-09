@@ -74,8 +74,8 @@ public class FragmentE extends Fragment implements View.OnClickListener, CustomD
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity.updateFragmentsCount();
-        activity.updateTransactionsCount();
+        //activity.updateFragmentsCount();
+        //activity.updateTransactionsCount();
     }
 
     public void setListener(OnFragmentMessageSentListener listener) {
@@ -88,17 +88,19 @@ public class FragmentE extends Fragment implements View.OnClickListener, CustomD
             case R.id.btnSendToActivity:
                 if (etMessageForActivity.getText() != null) {
                     if (listener != null) {
-                        listener.onFragmentMessageSent(activity.FRAGMENT_E_NAME, etMessageForActivity.getText().toString());
+                        //listener.onFragmentMessageSent(activity.FRAGMENT_E_NAME, etMessageForActivity.getText().toString());
                     }
                 }
                 break;
             case R.id.btnSendToFragment:
                 if (etMessageForFragmentD.getText() != null) {
+                    /*
                     FragmentD fragmentD = (FragmentD) activity.getSupportFragmentManager().findFragmentByTag(activity.FRAGMENT_D_NAME);
 
                     if (fragmentD != null) {
                         fragmentD.setMessageFromFragmentE(etMessageForFragmentD.getText().toString());
                     }
+                    */
                 }
                 break;
             case R.id.btnShowDialog:
