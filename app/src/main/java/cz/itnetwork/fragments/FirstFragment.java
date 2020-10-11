@@ -15,6 +15,11 @@ public class FirstFragment extends Fragment {
 
     TextView label;
 
+    TextView labelArgInt;
+    TextView labelArgFloat;
+    TextView labelArgString;
+    TextView labelArgBoolean;
+
     Bundle args;
     String message = "TextView";
 
@@ -27,12 +32,22 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.first_fragment, container, false);
+
         label = view.findViewById(R.id.label);
+        labelArgInt = view.findViewById(R.id.labelArgInt);
+        labelArgFloat = view.findViewById(R.id.labelArgFloat);
+        labelArgString = view.findViewById(R.id.labelArgString);
+        labelArgBoolean = view.findViewById(R.id.labelArgBoolean);
 
         args = getArguments();
 
         if (args != null) {
             message = args.getString("message", "???");
+
+            labelArgInt.setText("int: " + args.getInt("int", -1));
+            labelArgFloat.setText("float: " + args.getFloat("float", -1f));
+            labelArgString.setText("String: " + args.getString("string", "???"));
+            labelArgBoolean.setText("boolean: " + args.getBoolean("boolean", false));
         }
 
         label.setText(message);

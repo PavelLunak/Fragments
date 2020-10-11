@@ -30,6 +30,10 @@ public class ActivityFirstFragment extends AppCompatActivity {
     private void showFirstFragment() {
         Bundle args = new Bundle();
         args.putString("message", "Toto je náš první fragment :-)");
+        args.putInt("int", 6156);
+        args.putFloat("float", 23.789f);
+        args.putString("string", "Textový řetězec");
+        args.putBoolean("boolean", true);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
