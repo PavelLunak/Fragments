@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button btnInsertFragment;
     Button btnCommunication;
+    Button btnInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +20,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnInsertFragment = findViewById(R.id.btnInsertFragment);
         btnCommunication = findViewById(R.id.btnCommunication);
+        btnInterface = findViewById(R.id.btnInterface);
 
         btnInsertFragment.setOnClickListener(this);
         btnCommunication.setOnClickListener(this);
+        btnInterface.setOnClickListener(this);
     }
 
     @Override
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnCommunication:
                 intent = new Intent(this, ActivityCommunication.class);
+                startActivity(intent);
+                break;
+            case R.id.btnInterface:
+                intent = new Intent(this, ActivityInterface.class);
                 startActivity(intent);
                 break;
         }
